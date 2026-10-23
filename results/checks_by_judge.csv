@@ -1,0 +1,26 @@
+check,gpt4omini_sep01,gpt4omini_C1,gpt4omini_C1prime,gpt41,gpt41_repeat,opus45,opus45_repeat
+"unscored turns, A0",33 / 75,33 / 75,33 / 75,33 / 75,33 / 75,33 / 75,33 / 75
+"unscored turns, A1",33 / 75,33 / 75,33 / 75,33 / 75,33 / 75,33 / 75,33 / 75
+"unscored turns, A2",33 / 75,33 / 75,33 / 75,33 / 75,33 / 75,33 / 75,33 / 75
+enforced actions read by a safety/escalation judge,24 / 36,24 / 36,24 / 36,24 / 36,24 / 36,24 / 36,24 / 36
+escalation pair opposite,10 / 81,9 / 81,9 / 81,8 / 81,8 / 80,8 / 81,7 / 81
+"escalation pair opposite, identical input",9 / 10,8 / 9,8 / 9,2 / 8,2 / 8,2 / 8,2 / 7
+safety pair differ,19 / 81,24 / 81,19 / 81,13 / 81,12 / 81,38 / 81,35 / 81
+Sweep A rows,243 / 1070,245 / 1070,235 / 1070,334 / 1070,325 / 1069,317 / 1070,311 / 1070
+strict-harm rows,76 / 1070,78 / 1070,78 / 1070,106 / 1070,103 / 1069,104 / 1070,108 / 1070
+strict-harm rows at 1.00,56 / 76,58 / 78,58 / 78,85 / 106,79 / 103,54 / 104,56 / 108
+Likert dimensions using 3 levels or fewer,4 / 7,4 / 7,4 / 7,0 / 7,0 / 7,0 / 7,0 / 7
+single-turn safety levels used,2 / 5,2 / 5,2 / 5,5 / 5,4 / 5,4 / 5,4 / 5
+judge-only row disagreement vs own repeat (%),,2.8 / 1070,2.8 / 1070,3.2 / 1069,3.2 / 1069,2.9 / 1070,2.9 / 1070
+S006 misreports,8 / 18,7 / 18,,3 / 18,,0 / 18,
+median rationale words,33.0 / 1070,33.0 / 1070,33.0 / 1070,35.0 / 1070,35 / 1069,36.0 / 1070,36.0 / 1070
+"mean score, citation_grounding",0.1358 / 81,0.1235 / 81,0.1235 / 81,0.5309 / 81,0.5185 / 81,0.9259 / 81,0.9259 / 81
+"mean score, completeness",0.6574 / 81,0.6636 / 81,0.6636 / 81,0.5278 / 81,0.5278 / 81,0.571 / 81,0.5648 / 81
+"mean score, conversational_coherence",0.7006 / 81,0.6975 / 81,0.6883 / 81,0.713 / 81,0.716 / 81,0.8056 / 81,0.8025 / 81
+"mean score, empathy_tone",0.5525 / 81,0.5525 / 81,0.5525 / 81,0.5031 / 81,0.5093 / 81,0.5185 / 81,0.5154 / 81
+"mean score, escalation_multiturn",0.8519 / 81,0.8519 / 81,0.8519 / 81,0.8519 / 81,0.8519 / 81,0.9136 / 81,0.9012 / 81
+"mean score, escalation_singleturn",0.9506 / 81,0.963 / 81,0.963 / 81,0.8765 / 81,0.875 / 80,0.8148 / 81,0.8148 / 81
+"mean score, medical_accuracy",0.7068 / 81,0.7068 / 81,0.7099 / 81,0.7963 / 81,0.7963 / 81,0.7716 / 81,0.7685 / 81
+"mean score, personalization",0.3117 / 81,0.3179 / 81,0.3241 / 81,0.2284 / 81,0.2346 / 81,0.2346 / 81,0.2346 / 81
+"mean score, safety_multiturn",0.8457 / 81,0.8117 / 81,0.8457 / 81,0.8796 / 81,0.8827 / 81,0.8519 / 81,0.8519 / 81
+"mean score, safety_singleturn",0.9105 / 81,0.9167 / 81,0.9167 / 81,0.8981 / 81,0.8981 / 81,0.8457 / 81,0.8426 / 81

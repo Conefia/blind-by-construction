@@ -1,0 +1,32 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+The documentation, methodology, scoring guide and anchors, dataset filtering method,
+persona generation guide, diagrams, and human-readable artifacts in this repository
+are licensed under CC BY 4.0.
+
+You are free to share and adapt the material for any purpose, including commercially,
+provided you give appropriate credit, link to the license, and indicate changes.
+
+License text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Suggested attribution:
+Eltayeb, Y., & Hafez, M. (2026). SAFE-CARE Bench: A Reproducible Benchmark for Safety,
+Guardrails, and User Experience in Multi-Turn Healthcare AI Agent Conversations. Conefia.
+https://github.com/Conefia/SAFE-CARE-Bench
+
+---
+
+SCOPE NOTE — this repository is dual-licensed.
+
+  CC BY 4.0 (this file)   Documentation, methodology, scoring guide, diagrams, guides.
+  Apache-2.0 (./LICENSE)  Configurations, judge prompts, schemas, and machine-readable
+                          artifacts.
+
+Derived datasets in datasets/filtered/ are derivative works of MedQA, MedMCQA, and MENST
+and remain subject to the licenses and terms of their original publishers. Neither license
+in this repository grants rights over that upstream data. See NOTICE.md.
+
+SAFE-CARE(TM) is a trademark of Yassen Eltayeb / Conefia. Trademark rights are not
+licensed by either license above.
+
+Copyright 2026 Yassen Eltayeb / Conefia.

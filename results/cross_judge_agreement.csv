@@ -1,0 +1,10 @@
+first,second,unit,n_compared,pct_agree,floor_first_pct,floor_second_pct,n_disagree,pct_disagreements_first_higher,dimensions_first_higher
+gpt4omini_C1,gpt41,row,1070,62.4,97.2,96.8,402,42.3,
+gpt4omini_C1,gpt41,cell,270,51.1,94.1,91.1,132,46.2,
+gpt4omini_C1,gpt41,dimension mean (in scope),10,,,,9,,5
+gpt4omini_C1,opus45,row,1070,53.4,97.2,97.1,499,42.1,
+gpt4omini_C1,opus45,cell,270,41.5,94.1,92.2,158,43.0,
+gpt4omini_C1,opus45,dimension mean (in scope),10,,,,10,,5
+gpt41,opus45,row,1070,63.4,96.8,97.1,392,50.5,
+gpt41,opus45,cell,270,51.1,91.1,92.2,132,41.7,
+gpt41,opus45,dimension mean (in scope),10,,,,10,,4
