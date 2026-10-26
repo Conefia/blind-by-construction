@@ -1,6 +1,6 @@
 # Blind by Construction
 
-**A judged healthcare-agent benchmark left a third of a new guardrail's actions unscored, and changing the judge could not fix it, because the scenario files decide which turns get scored. This repository holds the data, the scores and the checks that found it.**
+**A judged healthcare-agent benchmark left a third of a new guardrail's actions unscored, and no change of judge fixed it, because the scenario files decide which turns get scored before any agent runs. This repository holds the data, the scores and the checks that found it.**
 
 Yassen Eltayeb, Muaaz Abdelkarim and Monzir Hafez, Conefia LLC
 
@@ -8,7 +8,11 @@ Artifact for *Blind by Construction: Five Instrument Defects in a Controlled Hea
 
 ## In brief
 
-Health AI benchmarks compare models on a fixed evaluation. A health system's release gate, the go-live check for a new version, asks the reverse: once a safety control is added around a fixed model, is the agent safer without losing accuracy, and can the evaluation see the change? We held a patient-facing agent's model, system prompt and rubric fixed, added retrieval and then guardrails (three capability tiers: baseline, grounded and guarded), and scored the same 107 conversations, from twelve scenarios, on ten dimensions with three LLM judges. We expected the guardrails to raise judged safety. Instead, judged safety barely moved, and judged medical accuracy fell under all three judges, mostly through two guardrail replies whose urgency contradicted the reference label, the same urgency a blinded physician gave. Auditing why we nearly missed that fall exposed five defects in our own instrument. The largest is a gap in scoring coverage: 12 of the guardrail's 36 actions fell on turns that no dimension scores, and the count is the same under every judge. The judge is part of the instrument too: each judge matched its own repeat on about 97% of scores, yet two judges matched each other on only 53% to 63%. With nine scenarios in scope, we report the agent result as exploratory; the coverage counts are complete.
+Health AI benchmarks compare models on a fixed evaluation. A health system's release gate, the go-live check for a new version, asks the reverse: once a safety control is added around a fixed model, is the agent safer without losing accuracy, and can the evaluation see the change? We held a patient-facing agent's model, system prompt and rubric fixed, so that any change in its scores could come only from what we added: retrieval, then guardrails (three capability tiers: baseline, grounded and guarded). Each of three LLM judges then scored the same 107 conversations, from twelve scenarios, on ten dimensions.
+
+We expected the guardrails to raise judged safety. Instead, judged safety barely moved, and judged medical accuracy fell under all three judges, mostly through two guardrail replies whose urgency contradicted the reference label, the same urgency a blinded physician gave. With nine scenarios in scope, we report this agent result as exploratory.
+
+Auditing why we nearly missed that fall exposed five defects in our own instrument. The largest is a gap in scoring coverage: 12 of the guardrail's 36 actions fell on turns that no dimension scores, and because the scenario files fix the scored turns, the count is complete and the same under every judge. The judge is part of the instrument too: each judge matched its own repeat on about 97% of scores, yet two judges matched each other on only 53% to 63%.
 
 ## Why this matters
 
@@ -23,7 +27,7 @@ Each row is a question a release gate would ask. Twelve scenarios gave 107 score
 | Question | What we found | Answer | Caveat | Check it in |
 |---|---|---|---|---|
 | **Did adding the guardrail change the scores?** | Medical accuracy fell under every judge, mostly from two fixed guardrail replies whose urgency missed the label; judged safety stayed within noise. | **Partly:** medical accuracy fell, but the fall rests on two replies. | Nine scenarios; of four scorings, only the original run's interval excludes zero. | Fig. 5, `results/agent_deltas_by_judge.csv` |
-| **Can a judged benchmark be blind to a safety layer by design?** | At every tier, 33 of 75 agent turns are scored by no dimension, and 12 of the guardrail's 36 actions fall on those turns. The counts are identical under all three judges. | **Yes,** by a complete count. | One benchmark. | Figs. 2 and 3, `scores/turn_map.csv` |
+| **Can a judged benchmark be blind to a safety control by construction?** | At every tier, 33 of 75 agent turns are scored by no dimension, and 12 of the guardrail's 36 actions fall on those turns. The counts are identical under all three judges. | **Yes,** by a complete count. | One benchmark. | Figs. 2 and 3, `scores/turn_map.csv` |
 | **Does the choice of judge change the result?** | A judge matches its own repeat on about 97% of scores, but another judge on only 53% to 63%. The medical-accuracy fall under GPT-4.1 is more than twice that under Opus 4.5 (−0.194 against −0.074). | **Yes;** the gap between judges is far wider than repeat noise. | Which judge is right stays open until clinicians' ratings are analyzed. | Fig. 4, `results/cross_judge_agreement.csv` |
 | **Does a blinded physician agree with our reference labels?** | Urgency (none, routine, prompt, emergency): same level in 7 of 12, never more than one level apart. Same escalation turn wherever both marked one. Same answer on whether escalation is warranted in 7 of 12. | **Mostly;** the escalation-warranted field asks two questions at once. | One physician. | Fig. 6, `human_labels/` |
 
@@ -71,11 +75,19 @@ Figure 1 is above. All six figures are drawn by `figures/make_figures.py` from t
 
 ## What to take away
 
-Benchmarks built to rank models are trusted to approve changes made around a model. This audit shows one place where that trust breaks: with the model fixed, 12 of a new guardrail's 36 actions went unscored whichever judge did the scoring, and two credible judges agreed on only 53% to 63% of scores. Before a new version of a patient-facing agent reaches patients, a release gate should audit which turns are scored and calibrate the judge against clinicians. The checks above run on outputs an evaluation already stores, so you can run them on yours with the script in [Reproduce](#reproduce): it needs per-row scores with the turn each row scored, and a turn map with any guardrail action on each turn, in the column layout of `scores/`.
+Judges validated on fixed outputs are trusted with the release-gate question. This audit shows one place where that trust breaks: with the model fixed, 12 of a new guardrail's 36 actions went unscored under all three judges, and two credible judges agreed on only 53% to 63% of scores. Before a new version of a patient-facing agent reaches patients, a release gate should audit which turns are scored and calibrate the judge against clinicians.
+
+Most of the checks above run on outputs an evaluation already stores, so you can run them on your own benchmark with the script in [Reproduce](#reproduce): it needs per-row scores with the turn each row scored, and a turn map with any guardrail action on each turn, in the column layout of `scores/`.
 
 ## What comes next
 
-This audit is the first of three studies. Sixteen raters at more than ten institutions, twelve of them practicing clinicians, have rated these same conversations, and a calibration study compares the three judges against them. A replication in GLP-1 therapy and autism will test whether the defects recur.
+This audit is the first of three studies, and each takes up the question the one before it leaves open.
+
+1. **Audit (done, this repository).** Is the change scored, and do two judges agree? On one domain with three judges, a third of the guardrail's actions went unscored, and the judges disagreed far beyond their own noise. The audit cannot say which judge is right.
+2. **Calibrate (under way).** Which judge agrees with clinicians? Sixteen raters at more than ten institutions, twelve of them practicing clinicians, have rated these same conversations, and a calibration study compares the three judges against them. Calibration is necessary but not sufficient: no judge scores a turn the scenario file never routes to it.
+3. **Replicate (planned).** Do the defects recur? A replication in GLP-1 therapy and autism will test them in other clinical domains.
+
+A release gate needs all three answers before go-live: a change it can see, a judge it can trust, and evidence that both hold beyond one domain. If you run these checks on your own benchmark, open an issue and tell us what you find.
 
 ## Look it up
 
